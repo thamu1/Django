@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="home.css">
+    </head>
+    <title>Home</title>
+    <body>
+        <h1>Hi Thamu</h1>
+        <h3>{{get}}</h3>
+
+        {% if result%}
+            {{result}}
+        {% elif sub %}
+            {{sub}}
+        {% endif %}
+        
+
+        <ul>
+            <li><a href="insert">Insert</a></li>
+            <li><a href="search">search</a></li>
+        </ul>
+    </body>
+</html>

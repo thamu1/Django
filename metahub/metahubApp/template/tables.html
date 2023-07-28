@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+        <script src="{% static 'table.js' %}"></script>
+    </head>
+    <title>Tables</title>
+    <body>
+        <h1 id="try"></h1>
+        <div id="main-div">
+            <div id="subject_area" style="display:none;">
+                <h1 id="h1-head">subject Area</h1>
+                <form method="POST" action="insert/metainsert" target="myframe">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="subject_area">
+                    <p>Subject Area ID: <input type="number" name="subjectarea_id" required></p>
+                    <p>Project ID: <input type="number" name="project_id" required></p>
+                    <p>Subject Area Name: <input type="text" name="subjectarea_name" required></p>
+                    <p>Subject Area Description: <input type="text" name="subjectarea_desc" rows="1" required></p>
+                    <p>Status Flag: <input type="number" name="status_flag" required></p>
+                    <input type="submit"  value="Submit">
+                </form>
+            </div>
+            <div id="ingestion_source" style="display:none;">
+                <h1 id="h1-head">Ingestion source</h1>
+                <form method="POST" action="insert/metainsert" target="myframe">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="ingestion_source">
+                    <p>Source ID: <input type="number" name="sourceid"  placeholder="Enter Source ID" required></p>
+                  
+                    <p>Classification ID: <input type="number" name="classification_id"  placeholder="Enter Classification ID" required></p>
+                  
+                    <p>Subject Area ID: <input type="number" name="subjectarea_id"  placeholder="Enter Subject Area ID" required></p>
+                  
+                    <p>Credential ID: <input type="number" name="credential_id"  placeholder="Enter Credential ID" required></p>
+                  
+                    <p>Data Type ID: <input type="number" name="data_type_id"  placeholder="Enter Data Type ID" required></p>
+                  
+                    <p>Application: <input type="text" name="application"  placeholder="Enter Application" required></p>
+                  
+                    <p>Source DB: <input type="text" name="sourcedb"  placeholder="Enter Source DB" required></p>
+                  
+                    <p>Table Base: <input type="text" name="tablebase"  placeholder="Enter Table Base" required></p>
+                  
+                    <p>HDL Load Type: <input type="text" name="hdl_loadtype"  placeholder="Enter HDL Load Type" required></p>
+                  
+                    <p>HDL Subtype: <input type="text" name="hdl_subtype"  placeholder="Enter HDL Subtype" required></p>
+                  
+                    <p>Frequency: <input type="text" name="frequency"  placeholder="Enter Frequency" required></p>
+                  
+                    <p>ID Column: <input type="text" name="idcolumn"  placeholder="Enter ID Column" required></p>
+                  
+                    <p>Date Column: <input type="text" name="datecolumn"  placeholder="Enter Date Column" required></p>
+                  
+                    <p>Column List: <input type="text" name="columnlist"  placeholder="Enter Column List" required></p>
+                  
+                    <p>SA DB: <input type="text" name="sa_db"  placeholder="Enter SA DB" required></p>
+                  
+                    <p>SA Table Name: <input type="text" name="satablename"  placeholder="Enter SA Table Name" required></p>
+                  
+                    <p>Staging1 DB: <input type="text" name="staging1_db"  placeholder="Enter Staging1 DB" required></p>
+                  
+                    <p>Staging1 Name: <input type="text" name="staging1name"  placeholder="Enter Staging1 Name" required></p>
+                  
+                    <p>Staging2 DB: <input type="text" name="staging2_db"  placeholder="Enter Staging2 DB" required></p>
+                  
+                    <p>Staging2 Name: <input type="text" name="staging2name"  placeholder="Enter Staging2 Name" required></p>
+                  
+                    <p>Server IP: <input type="text" name="serverip"  placeholder="Enter Server IP" required></p>
+                  
+                    <p>Status Flag: <input type="number" name="status_flag" min="0" max="1"  required></p>
+                  
+                    <input type="submit"  value="Submit">
+                  </form>
+            </div>
+            
+            <div id="ingestion_controller" style="display:none;">
+                <h1 id="h1-head">Ingestion controller</h1>
+                <form method="POST" action="insert/metainsert" target="myframe">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="ingestion_controller">
+                    <p>Controller ID: <input type="number" name="controller_id" required placeholder="Enter Controller ID"></p>
+                  
+                    <p>Source ID: <input type="number" name="sourceid" required placeholder="Enter Source ID"></p>
+                  
+                    <p>File Format: <input type="text" name="fileformat" required placeholder="Enter File Format"></p>
+                  
+                    <p>Append Mode: <input type="text" name="appendmode" required placeholder="Enter Append Mode"></p>
+                  
+                    <p>SQL Query: <input type="text" name="sqlquery" required placeholder="Enter SQL Query"></p>
+                  
+                    <p>Boundary Query: <input type="text" name="boundaryquery" required placeholder="Enter Boundary Query"></p>
+                  
+                    <p>Number of Mappers: <input type="number" name="numberofmappers" required placeholder="Enter Number of Mappers"></p>
+                  
+                    <p>Split by Column: <input type="text" name="splitbycolumn" required placeholder="Enter Split by Column"></p>
+                  
+                    <p>Target Directory: <input type="text" name="targetdir" required placeholder="Enter Target Directory"></p>
+                  
+                    <p>Warehouse Directory: <input type="text" name="warehousedir" required placeholder="Enter Warehouse Directory"></p>
+                  
+                    <p>Null String: <input type="text" name="nullstring" required placeholder="Enter Null String"></p>
+                  
+                    <p>Fields Terminater: <input type="text" name="fieldsterminater" required placeholder="Enter Fields Terminater"></p>
+                  
+                    <p>Lines Terminater: <input type="text" name="linesterminater" required placeholder="Enter Lines Terminater"></p>
+                  
+                    <p>Log File Location: <input type="text" name="logfilelocation" required placeholder="Enter Log File Location"></p>
+                  
+                    <p>Reload Date From: <input type="text" name="reloaddatefrom" required placeholder="Enter Reload Date From"></p>
+                  
+                    <p>Staging1 Directory: <input type="text" name="staging1dir" required placeholder="Enter Staging1 Directory"></p>
+                  
+                    <p>Staging2 Directory: <input type="text" name="staging2dir" required placeholder="Enter Staging2 Directory"></p>
+                  
+                    <p>Table Load In Process Flag: <input type="text" name="tableloadinprocessflag" required placeholder="Enter Table Load In Process Flag"></p>
+                  
+                    <p>ETL Reload List: <input type="text" name="etl_reloadlist" required placeholder="Enter ETL Reload List"></p>
+                  
+                    <p>ETL Reload From: <input type="text" name="etl_reloadfrom" required placeholder="Enter ETL Reload From"></p>
+                  
+                    <p>CDC Backtrace Days: <input type="text" name="cdcbacktracedays" required placeholder="Enter CDC Backtrace Days"></p>
+                  
+                    <p>End Trace Days: <input type="text" name="endtracedays" required placeholder="Enter End Trace Days"></p>
+                  
+                    <p>Where Clause: <input type="text" name="whereclause" required placeholder="Enter Where Clause"></p>
+                  
+                    <p>Threshold for Upper Limit: <input type="number" name="threshold_for_upperlmt" required placeholder="Enter Threshold for Upper Limit"></p>
+                  
+                    <input type="submit"  value="Submit">
+                  </form>
+            </div>
+            <div id="gcp_scheduler" style="display:none;">
+                <h1 id="h1-head">Gcp scheduler</h1>
+                <form method="POST" action="insert/metainsert" target="myframe">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="gcp_scheduler">
+                    <p>Group Binding ID: <input type="number" name="group_binding_id" required placeholder="Enter Group Binding ID"></p>
+                  
+                    <p>Classification ID: <input type="number" name="classification_id" required placeholder="Enter Classification ID"></p>
+                  
+                    <p>Trigger Script: <input type="text" name="trigger_script" required placeholder="Enter Trigger Script"></p>
+                  
+                    <p>Params: <input type="text" name="params" required placeholder="Enter Params"></p>
+                  
+                    <p>Target: <input type="text" name="target" required placeholder="Enter Target"></p>
+                  
+                    <p>Base Trigger Type: <input type="text" name="base_trigger_type" required placeholder="Enter Base Trigger Type"></p>
+                  
+                    <p>Status Flag: <input type="number" name="status_flag" min="0" max="1" required placeholder="Enter Status Flag"></p>
+                  
+                    <p>Execution Flag: <input type="text" name="exec_flag" required placeholder="Enter Execution Flag"></p>
+                  
+                    <p>Developed By: <input type="text" name="developed_by" required placeholder="Enter Developed By"></p>
+                  
+                    <p>Comments: <input type="text" name="comments" required placeholder="Enter Comments"></p>
+                  
+                    <input type="submit"  value="Submit">
+                  </form>                  
+            </div>
+            
+            <div id="gcp_scheduler_ingestion_mapping" style="display:none;">
+                <h1 id="h1-head">gcp scheduler ingestion mapping</h1>
+                <form method="POST" action="insert/metainsert" target="myframe">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="gcp_scheduler_ingestion_mapping">
+                    <p>Mapping ID: <input type="number" name="mapping_id" required placeholder="Enter Mapping ID"></p>
+                  
+                    <p>Source ID: <input type="number" name="sourceid" required placeholder="Enter Source ID"></p>
+                  
+                    <p>Group Binding ID: <input type="number" name="group_binding_id" required placeholder="Enter Group Binding ID"></p>
+                  
+                    <p>Execution Order: <input type="number" name="exec_order" required placeholder="Enter Execution Order"></p>
+                  
+                    <p>Skip Flag: <input type="number" name="skip_flag" min="0" max="1" required placeholder="Enter Skip Flag"></p>
+                  
+                    <p>Average Execution Time: <input type="number" name="avgexectime" required placeholder="Enter Average Execution Time"></p>
+                  
+                    <input type="submit"  value="Submit">
+                  </form>                  
+            </div>
+
+        <div id="gcp_config_objects" style="display:none;">
+            <h1 id="h1-head">gcp config objects</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="gcp_config_objects">
+                <p>Object ID: <input type="number" name="object_id" required placeholder="Enter Object ID"></p>
+              
+                <p>Classification ID: <input type="number" name="classification_id" required placeholder="Enter Classification ID"></p>
+              
+                <p>Subject Area ID: <input type="number" name="subjectarea_id" required placeholder="Enter Subject Area ID"></p>
+              
+                <p>Data Type ID: <input type="number" name="data_type_id" required placeholder="Enter Data Type ID"></p>
+              
+                <p>Object Name: <input type="text" name="object_name" required placeholder="Enter Object Name"></p>
+              
+                <p>Source Name: <input type="text" name="sourcename" required placeholder="Enter Source Name"></p>
+              
+                <p>Application: <input type="text" name="application" required placeholder="Enter Application"></p>
+              
+                <p>Dataset Name: <input type="text" name="datset_name" required placeholder="Enter Dataset Name"></p>
+              
+                <p>Object Description: <input type="text" name="object_desc" required placeholder="Enter Object Description"></p>
+              
+                <p>Load Type: <input type="text" name="loadtype" required placeholder="Enter Load Type"></p>
+              
+                <p>Recon Start Limit: <input type="number" name="recon_start_limit" required placeholder="Enter Recon Start Limit"></p>
+              
+                <p>Recon End Limit: <input type="number" name="recon_end_limit" required placeholder="Enter Recon End Limit"></p>
+              
+                <p>Status Flag: <input type="number" name="status_flag" min="0" max="1" required placeholder="Enter Status Flag"></p>
+              
+                <p>Bypass Recon Start Limit for Hourly Loads: <input type="number" name="bypass_recon_start_limit_hrly_loads" min="0" max="1" required placeholder="Enter Bypass Recon Start Limit for Hourly Loads"></p>
+              
+                <p>Control Flag: <input type="text" name="control_flag" required placeholder="Enter Control Flag"></p>
+              
+                <p>Partition Flag: <input type="number" name="partition_flag" min="0" max="1" required placeholder="Enter Partition Flag"></p>
+              
+                <p>Frequency: <input type="text" name="frequency" required placeholder="Enter Frequency"></p>
+              
+                <p>Developed By: <input type="text" name="development_by" required placeholder="Enter Developed By"></p>
+              
+                <p>Development Date: <input type="text" name="development_date" required placeholder="Enter Development Date"></p>
+              
+                <p>Updated By: <input type="text" name="updated_by" required placeholder="Enter Updated By"></p>
+              
+                <p>Update Date: <input type="text" name="update_date" required placeholder="Enter Update Date"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>              
+        </div>
+
+        <div id="gcp_airflow_scheduler" style="display:none;">
+            <h1 id="h1-head">gcp airflow scheduler</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="gcp_airflow_scheduler">
+                <p>Airflow Binding ID: <input type="number" name="airflow_binding_id" required placeholder="Enter Airflow Binding ID"></p>
+              
+                <p>Group Binding ID: <input type="number" name="group_binding_id" required placeholder="Enter Group Binding ID"></p>
+              
+                <p>DAG Name: <input type="text" name="dag_name" required placeholder="Enter DAG Name"></p>
+              
+                <p>Parent Bash Script: <input type="text" name="parent_bash_script" required placeholder="Enter Parent Bash Script"></p>
+              
+                <p>Trigger Bash Script: <input type="text" name="trigger_bash_script" required placeholder="Enter Trigger Bash Script"></p>
+              
+                <p>Params: <input type="text" name="params" required placeholder="Enter Params"></p>
+              
+                <p>JSON File Location: <input type="text" name="json_file_loc" required placeholder="Enter JSON File Location"></p>
+              
+                <p>Status Flag: <input type="number" name="status_flag" min="0" max="1" required placeholder="Enter Status Flag"></p>
+              
+                <p>Execution Order: <input type="number" name="exec_order" required placeholder="Enter Execution Order"></p>
+              
+                <p>Execution Flag: <input type="text" name="exec_flag" required placeholder="Enter Execution Flag"></p>
+              
+                <p>Developed By: <input type="text" name="developed_by" required placeholder="Enter Developed By"></p>
+              
+                <p>Comments: <input type="text" name="comments" required placeholder="Enter Comments"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>              
+        </div>
+
+        <div id="airflow_configobjs_mapping" style="display:none;">
+            <h1 id="h1-head">airflow configobjs mapping</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="airflow_configobjs_mapping">
+                <p>Airflow Mapping ID: <input type="number" name="airflow_mapping_id" required placeholder="Enter Airflow Mapping ID"></p>
+              
+                <p>Airflow Binding ID: <input type="number" name="airflow_binding_id" required placeholder="Enter Airflow Binding ID"></p>
+              
+                <p>Execution Order: <input type="number" name="exec_order" required placeholder="Enter Execution Order"></p>
+              
+                <p>Object ID: <input type="number" name="object_id" required placeholder="Enter Object ID"></p>
+              
+                <p>Skip Flag: <input type="number" name="skip_flag" min="0" max="1" required placeholder="Enter Skip Flag"></p>
+              
+                <p>Airflow Control Flag: <input type="text" name="airflow_control_flag" required placeholder="Enter Airflow Control Flag"></p>
+              
+                <p>GCP Schema Initial: <input type="text" name="gcp_schema_initial" required placeholder="Enter GCP Schema Initial"></p>
+              
+                <p>GCP Schema Intermediate: <input type="text" name="gcp_schema_intermediate" required placeholder="Enter GCP Schema Intermediate"></p>
+              
+                <p>GCP Schema Final: <input type="text" name="gcp_schema_final" required placeholder="Enter GCP Schema Final"></p>
+              
+                <p>GCP Schema SAS Final: <input type="text" name="gcp_schema_sas_final" required placeholder="Enter GCP Schema SAS Final"></p>
+              
+                <p>GCP Partition Columns: <input type="text" name="gcp_partition_cols" required placeholder="Enter GCP Partition Columns"></p>
+              
+                <p>GCP Cluster Columns: <input type="text" name="gcp_cluster_cols" required placeholder="Enter GCP Cluster Columns"></p>
+              
+                <p>Object GCS Path: <input type="text" name="obj_gcs_path" required placeholder="Enter Object GCS Path"></p>
+              
+                <p>Object GCS Final Alter Name: <input type="text" name="obj_gcs_final_alter_name" required placeholder="Enter Object GCS Final Alter Name"></p>
+              
+                <p>Object GCS Staging to Final Split Flag: <input type="number" name="obj_gcs_stg_to_final_split_flag" min="0" max="1" required placeholder="Enter Object GCS Staging to Final Split Flag"></p>
+              
+                <p>View SQL Except Columns: <input type="text" name="vw_sql_except_columns" required placeholder="Enter View SQL Except Columns"></p>
+              
+                <p>View SQL Loc: <input type="text" name="vw_sql_loc" required placeholder="Enter View SQL Loc"></p>
+              
+                <p>Comments: <input type="text" name="comments" required placeholder="Enter Comments"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>              
+        </div>
+
+        <div id="gcp_configobjs_ingestion_mapping" style="display:none;">
+            <h1 id="h1-head">gcp configobjs ingestion mapping</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="gcp_configobjs_ingestion_mapping">
+                <p>Mapping ID: <input type="number" name="mapping_id" required placeholder="Enter Mapping ID"></p>
+              
+                <p>Object ID: <input type="number" name="object_id" required placeholder="Enter Object ID"></p>
+              
+                <p>Source ID: <input type="number" name="sourceid" required placeholder="Enter Source ID"></p>
+              
+                <p>Skip Flag: <input type="number" name="skip_flag" min="0" max="1" required placeholder="Enter Skip Flag"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>              
+        </div>
+
+        <div id="gcp_scheduler_scheduler_trigger" style="display:none;">
+            <h1 id="h1-head">gcp scheduler scheduler trigger</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="gcp_scheduler_scheduler_trigger">
+                <p>Trigger ID: <input type="number" name="trigger_id" required placeholder="Enter Trigger ID"></p>
+              
+                <p>Group Binding ID: <input type="number" name="group_binding_id" required placeholder="Enter Group Binding ID"></p>
+              
+                <p>Trigger Group Binding ID: <input type="number" name="trigger_group_binding_id" required placeholder="Enter Trigger Group Binding ID"></p>
+              
+                <p>Execution Order: <input type="number" name="exec_order" required placeholder="Enter Execution Order"></p>
+              
+                <p>Skip Flag: <input type="number" name="skip_flag" min="0" max="1" required placeholder="Enter Skip Flag"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>
+              
+        </div>
+
+        <div id="airflow_configobjs_dependency" style="display:none;">
+            <h1 id="h1-head">airflow configobjs dependency</h1>
+            <form method="POST" action="insert/metainsert" target="myframe">
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="airflow_configobjs_dependency">
+                <p>Linking ID: <input type="number" name="linking_id" required placeholder="Enter Linking ID"></p>
+              
+                <p>Airflow Mapping ID: <input type="number" name="airflow_mapping_id" required placeholder="Enter Airflow Mapping ID"></p>
+              
+                <p>Dependent Airflow Mapping ID: <input type="number" name="dependent_airflow_mapping_id" required placeholder="Enter Dependent Airflow Mapping ID"></p>
+              
+                <p>Skip Flag: <input type="number" name="skip_flag" min="0" max="1" required placeholder="Enter Skip Flag"></p>
+              
+                <input type="submit"  value="Submit">
+              </form>
+              
+        </div>
+
+    </div>
+ 
+    </body>
+</html>
