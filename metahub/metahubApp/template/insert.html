@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+    <script src="{% static 'control.js' %}"></script>
+</head>
+<body id="body">
+    <h1 style="text-align: center;">Hi Thamu</h1>
+    <div id="container" style="clear: both;">
+        <div id="float-left">
+            <ul id="menu">
+                <li><h1>Ingestion</h1></li>
+                <li><button onclick="sa('sub_area')"><a href="insert/tables" target="myframe"><h3>Subject area</h3></a></button></li>
+                <li><button onclick="sa('in_source')"><a href="insert/tables" target="myframe"><h3>Ingestion source</h3></a></button></li>
+                <li><button onclick="sa('ing_con')"><a href="insert/tables" target="myframe"><h3>Ingestion controller</h3></a></button></li>
+                <li><button onclick="sa('gcp_sche')"><a href="insert/tables" target="myframe"><h3>GCP scheduler</h3></a></button></li>
+                <li><button onclick="sa('sche_ing_map')"><a href="insert/tables" target="myframe"><h3>Scheduler ingestion mapping</h3></a></button></li>
+            </ul>
+            <br><br>
+            <ul id="menu">
+                <li><h1>Compute</h1></li>
+                <li><button onclick="sa('con_obj')"><a href="insert/tables" target="myframe"><h3>Config object</h3></a></button></li>
+                <li><button onclick="sa('air_sche')"><a href="insert/tables" target="myframe"><h3>Airflow scheduler</h3></a></button></li>
+                <li><button onclick="sa('air_con_map')"><a href="insert/tables" target="myframe"><h3>Airflow config object mapping</h3></a></button></li>
+                <li><button onclick="sa('con_ing_map')"><a href="insert/tables" target="myframe"><h3>GCP configobjs ingestion mapping</h3></a></button></li>
+                <li><button onclick="sa('sche_sche_tri')"><a href="insert/tables" target="myframe"><h3>Scheduler scheduler trigger</h3></a></button></li>
+                <li><button onclick="sa('con_depen')"><a href="insert/tables" target="myframe"><h3>airflow configobjs dependency</h3></a></button></li>
+            </ul>
+        </div>
+        <div id="float-right">
+            <iframe name="myframe" id="myframe" ></iframe>
+        </div>
+    </div>
+    
+</body>
+</html>

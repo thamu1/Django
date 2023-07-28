@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Water Quality Analysis</title>
+    </head>
+    <body>
+        <h1>Hello Sir / Madam ...</h1>
+        
+        {% if result %}
+        <h1 style="color: rgb(14, 192, 7);text-align: center;">
+           <!-- <p> {{result.0}}</p><br><br> -->
+           <p> {{result.1}} </p>
+        </h1>
+            <script>alert("mail sent.")</script>
+        {% elif error %}
+        <h1 style="color: rgb(248, 7, 7);text-align: center;">
+            <!-- <p>{{error.0}} </p><br><br> -->
+            <p> {{error.1}} </p>
+        </h1>
+            <script>alert("check your mail ID or InterNet connection ...")</script>
+        {% endif %}
+
+        <form id="myForm" action='' method="post"  style="text-align: center;">
+            {% csrf_token %}
+            <pre>
+            <p>Send Mail TO                     : <input type="email" step="any" placeholder="abc@gmail.com" name="email" required></p>
+            <p>Temprature                       : <input type="number" step="any" placeholder="30.6" minlength="0" name="1" required></p>
+            <p>D.O. (mg/l)                      : <input type="number" step="any" placeholder="6.7" minlength="0" name="2" required></p>
+            <p>CONDUCTIVITY (µmhos/cm)          : <input type="number" step="any" placeholder="203" minlength="0" name="3" required></p>
+            <p>B.O.D. (mg/l)                    : <input type="number" step="any" placeholder="1.7" minlength="0" name="4" required></p>
+            <p>NITRATENAN N+ NITRITENANN (mg/l) : <input type="number" step="any" placeholder="0.2" minlength="0" name="5" required></p>
+            <p>FECAL COLIFORM (MPN/100ml)       : <input type="number" step="any" placeholder="3124" minlength="0" name="6" required></p>
+            <p>TOTAL COLIFORM (MPN/100ml)Mean   : <input type="number" step="any" placeholder="4049" minlength="0" name="7" required></p>
+            </pre>
+            <p><input type="submit" value="submit"><br><br><input type="reset" value="Reset"></p>
+         </form>
+
+
+         <script>
+            const form = document.querySelector('#myForm');
+            const resetButton = form.querySelector('input[type="reset"]');
+          
+            resetButton.addEventListener('click', (event) => {
+              event.preventDefault();
+              form.reset();
+            });
+          </script>
+          
+                  
+    </body>
+</html>
