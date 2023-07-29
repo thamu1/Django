@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload CSV into MySql</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'home.css' %}">
+    </head>
+    <body>
+        <h1>Welcome to csv upload</h1>
+
+        {% if file %}
+            {{file}}
+            <!-- <br><br>
+            {{file.1}} -->
+        {% endif %}
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <ul>
+                    <li>Upload File Here</li><br>
+                    <li><input type="file" accept=".csv" name="csvFile" required></li><br>
+                    <li><button type="submit" name="upload">Submit</button></li>
+                </ul>
+            </div>
+        </form>
+    </body>
+    
+
+</html>
