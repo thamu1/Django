@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <style>
+        video {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 0px;
+        }
+        #capturedImage{
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto;
+            margin-top: -280px;
+        }
+        canvas {
+            display: none;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 0px;
+            display: none;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<video id="video" autoplay></video>
+<canvas id="canvas"></canvas>
+<img id="capturedImage" src="{% static 'img/face.jpeg' %}" alt="Captured Image">
+<button id="captureButton" style="display: none;" onclick="captureImage()">Capture Image</button>
+
+<script>
+    var video = document.getElementById("video");
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var capturedImage = document.getElementById("capturedImage");
+    var captureButton = document.getElementById("captureButton");
+    var reset = document.getElementById("reset");
+    var stream;
+
+    function startCamera() {
+
+        // Reset display properties
+        capturedImage.style.display = 'none';
+        video.style.display = 'block';
+        captureButton.style.display = 'block';
+        resetval = "false";
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (videoStream) {
+                stream = videoStream;
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Error accessing camera:', error);
+            });
+    }
+
+
+    function saveImage() {
+        var link = document.createElement('a');
+        link.href = capturedImage.src;
+        link.download = "img.png";
+        link.click();
+        capturedImage.style.marginTop = "20px";
+        
+        capturedImage.src = "{% static 'img/face.jpeg' %}"
+    }
+
+    function captureImage() {
+        // Set canvas size to match the video frame
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // Draw the current video frame on the canvas
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Display the captured image
+        capturedImage.src = canvas.toDataURL('image/png');
+        capturedImage.style.display = 'block';
+
+        // Hide the video element and capture button
+        video.style.display = 'none';
+        captureButton.style.display = 'none';
+
+        // Stop the video stream
+        if (stream) {
+            stream.getTracks()[0].stop();
+            saveImage()
+        }
+    }
+
+
+</script>
+
+<button onclick="startCamera()">Open Camera</button>
+
+</body>
+</html>
