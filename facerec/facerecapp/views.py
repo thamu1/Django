@@ -21,13 +21,19 @@ from datetime import datetime
 cursor = connection.cursor()
 tableName = 'Thamu'
 
-new_path = "C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/temp_img"
+new_path = "C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/temp_img/image.png"
+
+image=cv2.imread(new_path)  #small
+
+roi = [167, 29, 267, 343]
+im_cropped = image[int(roi[1]):int(roi[1]+roi[3]),int(roi[0]):int(roi[0]+roi[2])]
+
 check = []
 
-def templatenew(i, new_img_path= f"{new_path}/image.png"): 
+def templatenew(i): 
     output_path="C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/saved_img"
     
-    newcv=cv2.imread(new_img_path)  #small
+    newcv = im_cropped
         
     var=""
     if(i.endswith('.bmp') or i.endswith('.jpg') or i.endswith('.png') or i.endswith('.jpeg')):
@@ -75,7 +81,7 @@ def login(request):
             img = b64decode(img_byte)
             
             
-            with open(f'{new_path}/image.png', 'wb') as image_file:
+            with open(f'{new_path}', 'wb') as image_file:
                 image_file.write(img)
             
             # ---- **************** -------
