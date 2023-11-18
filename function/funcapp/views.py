@@ -32,7 +32,7 @@ def login(request):
         if(email == 'thamu@gmail.com' and password == '123'):
             request.session['user'] = email
             # request.session['user'] = userName
-            # request.session.save()
+            request.session.save()
             # session_key=request.session.session_key
             return redirect('get')
         else:
@@ -73,7 +73,7 @@ def get(request):
                 return render(request, 'adHome.html',context)
             elif('delete' in request.POST):
                 # id = request.POST['id']
-                # deleteSql = "delete from functions.{tableName} where id=%s;"
+                # deleteSql = f"delete from functions.{tableName} where id=%s;"
                 # deleteVal = [id]
                 # cursor.execute(deleteSql,deleteVal)
                 # conn.commit()
@@ -133,7 +133,7 @@ def home(request):
                     amount = request.POST['amount']
                     extra = request.POST['extra']
 
-                    inssql = 'insert into functions(city,name1,name2,amount,extra_special) values(%s,%s,%s,%s,%s)'
+                    inssql = f'insert into {tableName}(city,name1,name2,amount,extra_special) values(%s,%s,%s,%s,%s)'
                     insval = [city,name1,name2,amount,extra]
                     cursor.execute(inssql,insval) 
 
@@ -145,7 +145,7 @@ def home(request):
                 
 
                 elif 'get' in request.POST:
-                    selsql = 'select * from functions order by id desc limit 1'
+                    selsql = f'select * from functions.{tableName} order by id desc limit 1'
                     cursor.execute(selsql)
                     result = cursor.fetchall()
                     context = {'get':result}
@@ -160,7 +160,7 @@ def home(request):
                     uname2 = request.POST['uname2']
                     uamount = request.POST['uamount']
                     uextra = request.POST['uextra']
-                    upsql = 'update functions set city=%s,name1=%s,name2=%s,amount=%s,extra_special=%s where id=%s'
+                    upsql = f'update {tableName} set city=%s,name1=%s,name2=%s,amount=%s,extra_special=%s where id=%s'
                     upval = [ucity,uname1,uname2,uamount,uextra,id]
                     cursor.execute(upsql,upval)
                     result = [ucity,uname1,uname2,uamount,uextra]

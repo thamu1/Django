@@ -5,11 +5,8 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.db import connection
 from django.contrib.auth import login,logout,authenticate
-import cgi
 import mysql.connector as mc
 from base64 import b64decode, b64encode
-from io import BytesIO
-from PIL import Image
 import cv2
 from multiprocessing.pool import ThreadPool as Pool
 import os
@@ -23,13 +20,15 @@ tableName = 'Thamu'
 
 new_path = "C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/temp_img/image.png"
 
-image=cv2.imread(new_path)  #small
-
-roi = [167, 29, 267, 343]
-im_cropped = image[int(roi[1]):int(roi[1]+roi[3]),int(roi[0]):int(roi[0]+roi[2])]
-
 
 def templatenew(i): 
+    
+    image=cv2.imread(new_path)  #small
+
+    roi = [167, 29, 267, 343]
+    im_cropped = image[int(roi[1]):int(roi[1]+roi[3]),int(roi[0]):int(roi[0]+roi[2])]
+
+
     output_path="C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/saved_img"
     
     newcv = im_cropped
@@ -37,7 +36,7 @@ def templatenew(i):
     var=""
     if(i.endswith('.bmp') or i.endswith('.jpg') or i.endswith('.png') or i.endswith('.jpeg')):
         serread=cv2.imread(i)  #big 
-        sercv=serread
+        sercv=serread.copy()
         nh,nw,ns=newcv.shape
         sh,sw,ss=sercv.shape
         if(sh>=nh and sw>=nw and ss>=ns):
@@ -48,7 +47,7 @@ def templatenew(i):
                 var="true"
                 savepath=output_path+"/"+str(time())+".png"
                 for pt in zip(*loc[::-1]):
-                    cv2.rectangle(sercv,pt,(pt[0]+nw,pt[1]+nh),(0,255,255),2)
+                    cv2.rectangle(img= sercv, pt1= pt,pt2= (pt[0]+nw,pt[1]+nh),color= (0,255,255),thickness= 1)
                     
                 cv2.imwrite(savepath,sercv)
             else:
@@ -84,14 +83,13 @@ def login(request):
                 image_file.write(img)
             
             # ---- **************** -------
-            
+                        
             
             # image = Image.open(BytesIO(img))
             # image.show()
             
             search_path="C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/img"
             path_list=[search_path+"/"+i for i in os.listdir(search_path)]
-            
             
             check = []
             
