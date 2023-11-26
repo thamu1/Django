@@ -25,9 +25,9 @@ def templatenew(i):
     
     image=cv2.imread(new_path)  #small
 
-    roi = [167, 29, 267, 343]
-    im_cropped = image[int(roi[1]):int(roi[1]+roi[3]),int(roi[0]):int(roi[0]+roi[2])]
-
+    # roi = [167, 29, 267, 343]
+    # im_cropped = image[int(roi[1]):int(roi[1]+roi[3]),int(roi[0]):int(roi[0]+roi[2])]
+    im_cropped = image
 
     output_path="C:/Users/ThamotharanC/OneDrive - Softcrylic LLC/Desktop/Django/facerec/facerecapp/static/saved_img"
     
