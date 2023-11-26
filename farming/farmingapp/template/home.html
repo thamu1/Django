@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My E-Commerce Site</title>
+    <link rel="stylesheet" href="{% static 'css/home_bck.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Buyer | Seller</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a> 
+        <a href="#">Shop</a> 
+        <a href="#">Contact</a>
+        <a href="seller">Sell Product</a>
+        <a href="logout">Logout</a>
+    </nav>
+    <main>
+        {% if product %}
+            {% for i, j in product %}
+                <div class="product">
+                    <img src="data:image/png;base64,{{ j }}" alt="product_image" width="100" height="100">
+                    <h2>{{i.0}}</h2>
+                    <table>
+                        <tr>
+                            <th>Price</th>
+                            <td>{{i.1}}</td>
+                        </tr>
+                        <tr>
+                            <th>Quantity</th>
+                            <td>{{i.3}}</td>
+                        </tr>
+                        <tr>
+                            <th>Company Name</th>
+                            <td>{{i.4}}</td>
+                        </tr>
+                        
+                    </table>
+                    <button>Buy</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </main>
+
+    <!-- <main>
+        <div class="product">
+            <h2>Product 1</h2>
+            <p>Description of Product 1. Price: $19.99</p>
+            <button>Buy</button>
+        </div>
+
+        <div class="product">
+            <h2>Product 2</h2>
+            <p>Description of Product 2. Price: $29.99</p>
+            <button>Buy</button>
+        </div>
+
+        <div class="product">
+            <h2>Product 2</h2>
+            <p>Description of Product 2. Price: $29.99</p>
+            <button>Buy</button>
+        </div>
+        
+
+        Add more product divs as needed
+    </main> -->
+
+    <footer>
+        <p>Footer will be added later</p>
+    </footer>
+</body>
+</html>

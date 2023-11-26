@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Information Form</title>
+    <style>
+
+        #outer {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+                
+        div {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        select {
+            height: 34px; /* Match the height of input fields */
+        }
+        
+        input[type="submit"] {
+            margin: 0 0 0 40%;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        #country_code{
+            width: 10%;
+        }
+
+        #phone{
+            width: 89%;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file-input-wrapper .btn-upload {
+            width: 100%;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* Add more styling as needed */
+        
+
+  </style>
+</head>
+<body>
+
+    {% if pro_image %}
+        
+        <input type="hidden" id="pro_details" value="Your Product {{pro_image.0}} Saved with Prize of {{pro_image.1}}">
+
+        <!-- <img src="data:image/png;base64,{{ pro_image.1 }}" alt="product_image" width="100" height="100"> -->
+    
+    {% endif %}
+    <a href="home">Home</a>
+
+    <div id="outer">
+        <h1> Give your product details </h1><br>
+        <form action="seller" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div id="div1">
+          
+            <label>Product Name: <input type="text" name="productName" placeholder="tomoto"> </label><br>
+            
+            <label>Price Of Product: <input type="number" name="productPrice" placeholder="$50"></label><br>
+
+            <label>Quantity in kg: <input type="number" name="productQuantity" placeholder="50" required></label><br>
+            
+            <div class="file-input-wrapper">
+                <label>Product Image:<br>
+                    <input type="file" id="myFileInput" name="productImage">
+                    <button class="btn-upload" onclick="document.getElementById('myFileInput').click()">Choose File</button>
+                </label>
+            </div>
+
+            <label>Product Details: <textarea cols="40" rows="4" name="productDescription"></textarea></label>
+                 
+        </div>
+    
+        <div id="div2">
+
+            <label>Company ID: <input type="text" name="companyID" placeholder="zoho123"></label><br>
+            
+            <label>Company Name: <input type="text" name="companyName" placeholder="zoho"></label><br>
+
+            <label>Location: 
+                <select name="companyLocation">
+                    <option value="">Select State</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kerela">Kerela</option>
+                    <option value="Benguluru">Benguluru</option>
+                    <option value="Others">Others</option>
+                </select></label><br>
+          
+            <label>Address: <textarea cols="40" rows="4" name="companyAddress" placeholder="@address"></textarea></label><br>
+            
+            <label>Email: <input type="email" name="companyEmail" placeholder="abc@gmail.com" required></label><br>
+            
+            <label>Phone Number: <br> <input type="text" name="country_code" id="country_code" value="+91" readonly>
+                <input type="text" name="companyPhoneNo" id="phone" minlength="10" maxlength="10" placeholder="6328178082"></label><br>
+            
+        </div>
+    
+        <div id="div3">
+            <input type="submit" name="product_details">
+        </div>
+        </form>
+      </div>
+
+    <script src="{% static 'js/seller.js' %}"></script>
+
+</body>
+</html>

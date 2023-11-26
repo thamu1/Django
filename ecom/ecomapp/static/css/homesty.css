@@ -4,15 +4,13 @@ body {
     padding: 0;
 }
 
-
-
-header {
+/* header {
     background-color: #615f5f;
     color: white;
     text-align: center;
     padding: 10px;
     position: relative;
-}
+} */
 
 /* ------------- */
 
@@ -42,9 +40,6 @@ nav a:hover {
     margin: 0 40px 0 0;
 }
 
-#menu-button{
-    font-size: 12px;
-}
 
 #search-content{
     background-color: #f4f4f4;
