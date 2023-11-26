@@ -9,12 +9,13 @@
         <div id="info_div">
             <p>
                 {% if img %}
-            <!-- {{img.1}} -->
-                <img src="data:image/jpeg;base64,{{ img }}" alt="Decoded Image" width="100" height="100">
-                <!-- {% for i in img %} -->
-                    <!-- <img src="data:image/jpeg;base64,{{i}}" alt="Decoded Image"> -->
-                    <!-- <img src="{{i}}" alt="image">  -->
-                <!-- {% endfor %} -->
+
+                <img src="data:image/png;base64,{{ img }}" alt="Decoded Image" width="100" height="100">
+
+                    <!-- {% for i in img %} -->
+                        <!-- <img src="data:image/jpeg;base64,{{i}}" alt="Decoded Image"> -->
+                    <!-- {% endfor %} -->
+            
                 {% elif drop %}
                     {{drop}}
 

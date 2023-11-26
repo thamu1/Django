@@ -5,6 +5,7 @@ import mysql.connector as mc
 import numpy as np
 from base64 import b64encode, b64decode
 from PIL import Image
+from io import BytesIO
 
 con = mc.connect(
     user = "root",
@@ -20,20 +21,36 @@ def home(request):
     if(request.method == "POST"):
         if 'upload' in request.POST:
             img = request.FILES['img'].read()
-            img = b64encode(img).decode('utf-8')
+            # img = b64encode(img).decode('utf-8')
+            
+            i1 = Image.open(BytesIO(img))
+            
+            i1.resize(size= (100,100))
+            
+            resized = BytesIO()
+            
+            i1.save(resized, format= 'PNG')
+            
+            img = b64encode(resized.getvalue()).decode('utf-8')
+            
+            # img = b64encode(i1).decode('utf-8')
             
             # im_arr = Image.open(img).resize(size=(100,100))
             
             # sql = "create table if not exists book_store(id int auto_increment, img longblob, primary key(id))"
             # cursor.execute(sql)
-            text = "created"
+            # text = "created"
             
             # sql = f"insert into book_store(img) values(%s)"
             # val = (img,)
             # cursor.execute(sql, val)
             # con.commit()
             
-            text += " " +"image inserted"
+            # img = Image.fromarray(im_arr)
+            
+            # img = img.
+            
+            # text += " " +"image inserted"
             
             # sql = "select img from book_store where img is not null"
             # cursor.execute(sql)
