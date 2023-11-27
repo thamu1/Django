@@ -12,6 +12,12 @@
         {% if yes %}
             {{yes}}
         {% endif %}
+
+
+        {% if signup_info %}
+            {{signup_info}}
+        {% endif %}
+
     </h1>
     <div class="login-container">
         <h2>Login</h2>
@@ -23,8 +29,9 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button name="login" type="submit">Login</button>
+            <button name="login" type="submit">Login</button><br><br>
         </form>
+        <a href="signup"><button>SignUp</button></button>
     </div>
 </body>
 </html>
