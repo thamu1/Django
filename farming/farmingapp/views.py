@@ -28,9 +28,55 @@ def login(request):
             context = {'failed':'Login failed'}
             return redirect('home')
             # return render(request , 'emptyhome.html',context)
-            
+          
     else:
         return render(request, 'login.html')
+    
+def signup(request):
+    if(request.method == 'POST' and ('signup' in request.POST)):
+        
+        userName = request.POST['userName']
+        password = request.POST['password']
+        rePassword = request.POST['rePassword']
+        email = request.POST['email']
+        PhoneNo = request.POST['PhoneNo']
+        location = request.POST['location']
+        
+        user_table = """create table if not exists ecom.user_details(
+            email varchar(255) primary key, user_name varchar(255), password varchar(255),
+            phone_number varchar(10), location varchar(255), created_time timestamp, insert_update varchar(10), 
+            last_login timestamp, user_status int 
+        )"""
+        
+        cursor.execute(user_table)
+        
+        if(password == rePassword):
+            
+            check_email = f"select count(email) from ecom.user_details where email = '{email}' "
+            cursor.execute(check_email)
+            
+            email_count = cursor.fetchall()
+            
+            if(email_count[0][0] <= 0):
+                
+                user_record_insert = f"""insert into ecom.user_details(email, user_name, password, 
+                phone_number, location, created_time, insert_update, last_login, user_status) 
+                values('{email}', '{userName}', '{password}', '{PhoneNo}', '{location}',
+                '{datetime.now()}', 'insert', '{datetime.now()}', {1})"""
+                
+                cursor.execute(user_record_insert)
+                
+                info = "id created successfully"
+            
+            else:
+                info = "already have an account"
+        
+        context = {"signup_info": info}
+        
+        return render(request, 'login.html', context= context)
+
+    else:
+        return render(request, 'signup.html')
 
 def logout(request):
     if request.session.has_key('user'):
@@ -58,9 +104,10 @@ def home(request):
         
         con = {"product": zip(all_product, img_arr)}
         return render(request, 'home.html', context= con)
+    
     else:
-        con = {"yes": "Not Logged in."}
-        return render(request, 'login.html', context= con)
+        # con = {"yes": "Not Logged in."}
+        return redirect('login')
 
 
 def seller(request):
@@ -116,7 +163,7 @@ def seller(request):
                     
                 cursor.execute(product_table)
                 
-                
+                # company update modification:
                 getCompanyDetails = "select count(1) from ecom.company where company_id = %s or company_name = %s"
                 getCompanyValue = [companyID, companyName] 
                     
@@ -144,6 +191,7 @@ def seller(request):
                     #     company_insert_query_status = 0
                 
                 
+                # Product update modification
                 getDetailsOfProduct = f"select count(1) from ecom.product_details "\
                     f"where product_name = '{productName}' and company_id = '{companyID}'"
                     
