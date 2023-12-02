@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <title>Finger Print</title>
+    <head>
+        {% load static %}
+        <link href="{% static 'css/home.css' %}">
+
+
+        <style>
+            table, tr, th, td{
+                border: 1px solid black;
+                padding: 10px;
+                border-collapse:collapse;
+                margin:0 0 0 20%;
+                text-align: center;
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+
+        <p>welcome</p>
+
+        <div id="updateDivId" class="div1">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Employee Email</th>
+                    <th>Employee Hours of Work</th>
+                    <th>Salary for the day</th>
+                </tr>
+            
+                {% for i in emphrs %}
+                <tr>
+                    <td>{{i.4}}</td>
+                    <td>{{i.0}}</td>
+                    <td>{{i.1}}</td>
+                    <td>{{i.2}}</td>
+                    <td>{{i.3}}</td>
+                    <td>{{i.5}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+
+        </div>
+
+    </body>
+
+</html>

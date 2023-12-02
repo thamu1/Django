@@ -13,6 +13,9 @@
             {{yes}}
         {% endif %}
 
+        {% if login_status %}
+            <h2 style="color: red;"> {{login_status}} </h2>
+        {% endif %}
 
         {% if signup_info %}
             {{signup_info}}
