@@ -3,7 +3,7 @@ from .models import *
 from django.db import connection
 from django.contrib.auth import login,logout,authenticate
 # import cgi
-import mysql.connector
+# import mysql.connector
 
 
 cursor = connection.cursor()

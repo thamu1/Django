@@ -8,26 +8,75 @@ from base64 import b64encode, b64decode
 from datetime import datetime, timedelta, date
 from PIL import Image
 from io import BytesIO
+import smtplib
+
 
 
 cursor = connection.cursor()
 tableName = 'product'
+
+def mail(user):
+    server=smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server.ehlo()
+    server.login("taahirimraan8601@gmail.com","cjveesehkihdeeii")
+    # msg=f"{subject}\n\n YOU HAVE SUCCESSFULLY BOOKED... "
+
+    sender = "taahirimraan8601@gmail.com"
+    receiver = user # input("enter your Mail id : ")
+
+    
+    subject = f"Mail Check"
+    
+    content = f"you have logged in successfully at {datetime.now()}"
+
+    body = f"Hello,\n\n{content}."
+    msg = f"From: {sender}\nTo: {receiver}\nSubject: {subject}\n\n{body}"
+
+    server.sendmail(sender,receiver,msg)
+
+    print("mail sent")
+    server.quit()
 
 
 def login(request):
     if(request.method == 'POST' and ('login' in request.POST)):
         email = request.POST['username']
         password = request.POST['password']
-        if(email == 'thamu@gmail.com' and password == '123'):
+        
+        # get_user = """select email, password from ecom.user_details
+        #     where email = %s and password = %s """
+            
+        # get_user_val = [email, password]
+        
+        # cursor.execute(get_user, get_user_val)
+        # user_cnt = cursor.rowcount
+        
+        # if(user_cnt >= 1):
+        #     request.session['user'] = email
+        #     # request.session['user'] = userName
+        #     request.session.save()
+        #     # session_key=request.session.session_key
+        #     return redirect('home')
+            
+        # else:
+        #     context = {'login_status':'Login failed'}
+        #     # return redirect('login')
+        #     return render(request , 'login.html',context)
+            
+            
+        if(email == 'methamu8601@gmail.com' and password == '123'):
             request.session['user'] = email
             # request.session['user'] = userName
             request.session.save()
             # session_key=request.session.session_key
+            
+            mail(user= 'methamu8601@gmail.com')
+            
             return redirect('home')
         else:
-            context = {'failed':'Login failed'}
-            return redirect('home')
-            # return render(request , 'emptyhome.html',context)
+            context = {'login_status':'Login failed'}
+            # return redirect('home')
+            return render(request , 'login.html',context)
           
     else:
         return render(request, 'login.html')

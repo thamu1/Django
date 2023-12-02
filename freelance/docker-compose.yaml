@@ -1,0 +1,9 @@
+version: '0.1'
+
+services:
+  django:
+    image: django-docker:0.1
+    build: .
+    ports:
+      - "8080:8080"
+      - "8000:8000"
