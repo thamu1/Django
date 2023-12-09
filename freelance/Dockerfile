@@ -1,14 +1,20 @@
-FROM python:3.10
+FROM python:3.9
+	
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-WORKDIR /freelance
+WORKDIR /code
 
 COPY requirements.txt requirements.txt
 
-COPY . .
+RUN pip install --no-cache-dir --upgrade pip && \
+pip install --no-cache-dir -r requirements.txt && \
+pip install --no-cache-dir MySQL-python
 
-RUN python3 -m pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY . /code
 
-EXPOSE 8080
+RUN python manage.py makemigrations && python make migrate
 
-CMD ["python3", "manage.py", "runserver"]
+EXPOSE 8001
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -64,13 +64,13 @@ def login(request):
         #     return render(request , 'login.html',context)
             
             
-        if(email == 'methamu8601@gmail.com' and password == '123'):
+        if(email == 'thamu@gmail.com' and password == '123'):
             request.session['user'] = email
             # request.session['user'] = userName
             request.session.save()
             # session_key=request.session.session_key
             
-            mail(user= 'methamu8601@gmail.com')
+            # mail(user= 'methamu8601@gmail.com')
             
             return redirect('home')
         else:
@@ -137,22 +137,24 @@ def logout(request):
     
 def home(request):
     if 'user' in request.session:
-        
-        select_product = """select product_name, price_of_product,
-        product_image, quantity, company_name
-        from ecom.product_details
-        where product_status = 1"""
-        
-        cursor.execute(select_product)
-        
-        all_product = cursor.fetchall()
-        
-        img_arr = []
-        for i in all_product:
-            img_arr.append(i[2].decode('utf-8'))
-        
-        con = {"product": zip(all_product, img_arr)}
-        return render(request, 'home.html', context= con)
+        if (request.method == 'POST' and 'search' in request.POST):
+            pass
+        else:
+            select_product = """select product_name, price_of_product,
+            product_image, quantity, company_name
+            from ecom.product_details
+            where product_status = 1"""
+            
+            cursor.execute(select_product)
+            
+            all_product = cursor.fetchall()
+            
+            img_arr = []
+            for i in all_product:
+                img_arr.append(i[2].decode('utf-8'))
+            
+            con = {"product": zip(all_product, img_arr)}
+            return render(request, 'home.html', context= con)
     
     else:
         # con = {"yes": "Not Logged in."}

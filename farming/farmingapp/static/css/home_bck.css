@@ -118,6 +118,13 @@ table, tr, th, td{
     margin: 0 0 0 20px;
 }
 
+#search{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    
+}
+
 footer {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: #333;

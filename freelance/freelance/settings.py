@@ -14,6 +14,11 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+
+# credential_path = "D:/thamu/others/key/cloud.json"
+
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 
 # Quick-start development settings - unsuitable for production

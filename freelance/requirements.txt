@@ -1,7 +1,9 @@
-Django==4.2.3
-numpy==1.25.1
-opencv-python==4.8.0.76
-pandas==2.0.3
-mysql-connector-python==8.1.0
-mysqlclient==2.2.0
-Pillow==10.0.1
+mysql-connector-python
+mysql
+mysqlclient
+Django
+numpy
+requests
+sqlparse
+Jinja2
+python-dateutil
