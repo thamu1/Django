@@ -1,0 +1,7 @@
+mysql-connector-python
+Django
+numpy
+requests
+sqlparse
+Jinja2
+python-dateutil

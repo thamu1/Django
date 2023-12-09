@@ -2,27 +2,36 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.db import connection
 from django.contrib.auth import login,logout,authenticate
-# import cgi
-import mysql.connector
+import os
+from pathlib import Path
+# from google.cloud import bigquery
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# import cgi
+# import mysql.connector
+
+# credential = f"{BASE_DIR}/futureapp/key/cloud.json"
+
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credential
+
+# client = bigquery.Client()
 
 # cursor = connection.cursor()
 # tableName = 'freelance'
 
 
-
-
 # def query_exec(query, typeOfExec = "select"):
 #     if(typeOfExec in ["select"]):
-#         cursor.execute(query)
-#         result = cursor.fetchall()
+#         op = client.query(query)
+#         result = op.result()
         
 #         return(result)
         
 #     elif(typeOfExec in ["update", "insert", "create"]):
-#         cursor.execute(query)
+#         client.query(query)
         
-#         return(cursor.rowcount)
+#         return(1)
 
 def home(request):
     return render(request, 'index.html')
@@ -35,8 +44,9 @@ def home(request):
     #         message=request.POST["message"]
     #         submit=request.POST["submit"]
 
-    #         createdb = "create database if not exists freelance"
-    #         cursor.execute(createdb)
+    #         create_db = f"""create schema if not exists `django-deployment-practice.freelance`"""
+
+    #         ressult = query_exec(query= create_db, typeOfExec= "create")
             
     #         create_table = f"create table if not exists freelance.freelance_user_entry"\
     #                     f"(firstname varchar(50), lastname varchar(50),"\
