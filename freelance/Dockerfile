@@ -8,9 +8,18 @@ WORKDIR /code
 COPY requirements.txt requirements.txt
 
 RUN pip install --no-cache-dir --upgrade pip && \
+
 pip install --no-cache-dir -r requirements.txt
 
 COPY . /code
+
+pip install --no-cache-dir -r requirements.txt && \
+pip install --no-cache-dir MySQL-python
+
+COPY . /code
+
+RUN python manage.py makemigrations && python make migrate
+
 
 EXPOSE 8001
 

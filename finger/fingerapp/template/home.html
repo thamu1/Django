@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <title>Finger Print</title>
+    <head>
+        {% load static %}
+        <link href="{% static 'css/home.css' %}">
+    </head>
+
+    <body>
+
+        <div>
+            {% if try %}
+                {{try}}
+            {% endif %}
+        </div>
+
+        <div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Enter your Employee ID :<input type="text" name="empID"></label><br>
+                <button type="submit" name="in">In</button><br>
+                <button type="submit" name="out">out</button>
+
+            </form>
+        </div>
+    </body>
+
+</html>

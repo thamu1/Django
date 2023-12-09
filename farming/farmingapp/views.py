@@ -8,26 +8,75 @@ from base64 import b64encode, b64decode
 from datetime import datetime, timedelta, date
 from PIL import Image
 from io import BytesIO
+import smtplib
+
 
 
 cursor = connection.cursor()
 tableName = 'product'
+
+def mail(user):
+    server=smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server.ehlo()
+    server.login("taahirimraan8601@gmail.com","cjveesehkihdeeii")
+    # msg=f"{subject}\n\n YOU HAVE SUCCESSFULLY BOOKED... "
+
+    sender = "taahirimraan8601@gmail.com"
+    receiver = user # input("enter your Mail id : ")
+
+    
+    subject = f"Mail Check"
+    
+    content = f"you have logged in successfully at {datetime.now()}"
+
+    body = f"Hello,\n\n{content}."
+    msg = f"From: {sender}\nTo: {receiver}\nSubject: {subject}\n\n{body}"
+
+    server.sendmail(sender,receiver,msg)
+
+    print("mail sent")
+    server.quit()
 
 
 def login(request):
     if(request.method == 'POST' and ('login' in request.POST)):
         email = request.POST['username']
         password = request.POST['password']
+        
+        # get_user = """select email, password from ecom.user_details
+        #     where email = %s and password = %s """
+            
+        # get_user_val = [email, password]
+        
+        # cursor.execute(get_user, get_user_val)
+        # user_cnt = cursor.rowcount
+        
+        # if(user_cnt >= 1):
+        #     request.session['user'] = email
+        #     # request.session['user'] = userName
+        #     request.session.save()
+        #     # session_key=request.session.session_key
+        #     return redirect('home')
+            
+        # else:
+        #     context = {'login_status':'Login failed'}
+        #     # return redirect('login')
+        #     return render(request , 'login.html',context)
+            
+            
         if(email == 'thamu@gmail.com' and password == '123'):
             request.session['user'] = email
             # request.session['user'] = userName
             request.session.save()
             # session_key=request.session.session_key
+            
+            # mail(user= 'methamu8601@gmail.com')
+            
             return redirect('home')
         else:
-            context = {'failed':'Login failed'}
-            return redirect('home')
-            # return render(request , 'emptyhome.html',context)
+            context = {'login_status':'Login failed'}
+            # return redirect('home')
+            return render(request , 'login.html',context)
           
     else:
         return render(request, 'login.html')
@@ -88,22 +137,24 @@ def logout(request):
     
 def home(request):
     if 'user' in request.session:
-        
-        select_product = """select product_name, price_of_product,
-        product_image, quantity, company_name
-        from ecom.product_details
-        where product_status = 1"""
-        
-        cursor.execute(select_product)
-        
-        all_product = cursor.fetchall()
-        
-        img_arr = []
-        for i in all_product:
-            img_arr.append(i[2].decode('utf-8'))
-        
-        con = {"product": zip(all_product, img_arr)}
-        return render(request, 'home.html', context= con)
+        if (request.method == 'POST' and 'search' in request.POST):
+            pass
+        else:
+            select_product = """select product_name, price_of_product,
+            product_image, quantity, company_name
+            from ecom.product_details
+            where product_status = 1"""
+            
+            cursor.execute(select_product)
+            
+            all_product = cursor.fetchall()
+            
+            img_arr = []
+            for i in all_product:
+                img_arr.append(i[2].decode('utf-8'))
+            
+            con = {"product": zip(all_product, img_arr)}
+            return render(request, 'home.html', context= con)
     
     else:
         # con = {"yes": "Not Logged in."}

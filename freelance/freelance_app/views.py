@@ -3,12 +3,11 @@ from .models import *
 from django.db import connection
 from django.contrib.auth import login,logout,authenticate
 # import cgi
-import mysql.connector
+# import mysql.connector
 
 
 # cursor = connection.cursor()
 # tableName = 'freelance'
-
 
 
 
@@ -37,7 +36,7 @@ def home(request):
 
     #         createdb = "create database if not exists freelance"
     #         cursor.execute(createdb)
-            
+
     #         create_table = f"create table if not exists freelance.freelance_user_entry"\
     #                     f"(firstname varchar(50), lastname varchar(50),"\
     #                     f"email varchar(100) primary key, phone_number varchar(10) not null,"\
@@ -56,6 +55,27 @@ def home(request):
     #             val = { "val" : "You are our family now"}
     #         else:
     #             val = {"val" : "ohh!, please check your data"}
+
+            # create_table = f"create table if not exists freelance.freelance_user_entry"\
+            #             f"(firstname varchar(50), lastname varchar(50),"\
+            #             f"email varchar(100) primary key, phone_number varchar(10) not null,"\
+            #             f"message varchar(255) default 'nothing')"
+                    
+                        
+            # ressult = query_exec(query= create_table, typeOfExec= "create")
+            
+            # insert_sql = f"insert into freelance_user_entry"\
+            # f"(firstname, lastname, email, phone_number, message)"\
+            # f"values ('{firstname}', '{lastname}', '{email}', '{phone}', '{message}')"
+            
+            # result = query_exec(query= insert_sql, typeOfExec= "insert")
+            
+            # if(result == 1):
+            #     val = { "val" : "You are our family now"}
+            # else:
+            #     val = {"val" : "ohh!, please check your data"}
+
+            val = { "val" : "You are our family now"}
             
     #         return render(request, 'index.html', context= val)
             
