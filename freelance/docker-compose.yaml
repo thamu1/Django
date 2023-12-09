@@ -1,9 +1,35 @@
-version: '0.1'
+version: "3"
 
 services:
-  django:
-    image: django-docker:0.1
-    build: .
+  db:
+    image: mysql:latest
+    container_name: django_db
+    environment:
+      DB_HOST: db
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: Mysql.08
+      MYSQL_ROOT_PASSWORD: Mysql.08
+    restart: always
     ports:
-      - "8080:8080"
-      - "8000:8000"
+      - 3306:3306
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_app
+    image: django:app
+    environment:
+      DB_HOST: db
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: sample_user
+      MYSQL_PASSWORD: sample_password
+      MYSQL_ROOT_PASSWORD: sample123
+    ports:
+      - 8001:8000
+    depends_on:
+      - db
+    links:
+      - db
+      
