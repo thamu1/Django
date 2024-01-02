@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My E-Commerce Site</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Buyer | Seller</h1>
+    </header>
+
+    {% if buy%}
+        {{buy}}
+    {% endif %}
+
+    <nav>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="search" name="search" id="search" placeholder="search your product">
+        </form>
+        <a href="home">Home</a> 
+        <a href="#">Shop</a> 
+        <a href="#">Contact</a>
+        <a href="seller">Sell Product</a>
+        <a href="logout">Logout</a>
+    </nav>
+
+    <footer>
+        <p>Footer will be added later</p>
+    </footer>
+
+    <script>
+
+    </script>
+</body>
+</html>
