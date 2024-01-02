@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My E-Commerce Site</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f9fa;
+                color: #495057;
+            }
+            
+            header {
+                background-color: #343a40;
+                padding: 20px;
+                text-align: center;
+            }
+            nav{
+                margin-top: 5%;
+            }
+            
+            nav a {
+
+                color: #eb0b0b;
+                text-decoration: none;
+                font-size: 18px;
+                margin: 0 15%;
+                transition: color 0.3s ease-in-out;
+            }
+            
+            nav a:hover {
+                color: #28a745;
+            }
+            
+            
+            .buy_product {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                background-color: #fff;
+                border: 1px solid #e2e2e2;
+                border-radius: 10px;
+                margin: 20px;
+                padding: 20px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .buy_product:hover {
+                transform: scale(1.02);
+            }
+            
+            .product_info {
+                display: flex;
+                align-items: center;
+            }
+            
+            .product_img img {
+                border-radius: 8px;
+                margin-right: 15px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            h2 {
+                color: #2d3a4b;
+                margin-bottom: 10px;
+            }
+            
+            h4 {
+                margin: 5px 0;
+                color: #6c757d;
+            }
+            
+            p {
+                margin: 5px 0;
+                color: #495057;
+            }
+            
+            .buy_btn {
+                background-color: #28a745;
+                color: #fff;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
+            }
+            
+            .buy_btn:hover {
+                background-color: #218838;
+            }
+            
+            .container h1 {
+                color: #dc3545;
+                margin-top: 20px;
+            }
+            
+            
+        </style>
+        
+
+    </head>
+    <body>
+        <nav>
+            <a href="home">Home</a>
+        </nav>
+        
+        {% if product%}
+            {% for i, j in product %}
+                <div class="buy_product">
+                    <div id="product_info">
+                        <h2>{{i.0}}</h2>
+                        <div id="img">
+                            <img src="data:image/png;base64,{{ j }}" alt="product_image" width="100" height="100">
+                        </div>
+                        <div id="company">
+                            <h4>Company Name: {{i.4}}</h4>
+                        </div>
+                        <div id="price">
+                            <h4>Price : {{i.1}}</h4>
+                        </div>
+                        <div id="description">
+                            <h4>description : {{i.3}}</h4>
+                        </div>
+                        <div id="Location">
+                            <h4>From Location : {{i.5}}</h4>
+                        </div>
+                        <div id="availability">
+                            <h4>From Location : {{i.6}}</h4>
+                        </div>
+                        <form action="buy" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="buy_val" value='{"product_name":"{{i.0}}", "company_name":"{{i.4}}"}' readonly>
+                            <button class="buy_btn" name="buy" >Buy Now</button>
+                        </form>
+                    </div>  
+                     
+                </div>
+            {% endfor %}
+        {% elif not_buying%}
+            <h1>Oops!!! there seems to be you not going to buy anything</h1>
+        {% else %}
+            <h1>Oops!!! there seems to be you not going to buy anything</h1>
+        {% endif %}
+            
+    </body>
+</html>

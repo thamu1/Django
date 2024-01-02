@@ -9,6 +9,8 @@ from datetime import datetime, timedelta, date
 from PIL import Image
 from io import BytesIO
 import smtplib
+import json
+import numpy as np
 
 
 
@@ -32,7 +34,7 @@ def mail(user):
     body = f"Hello,\n\n{content}."
     msg = f"From: {sender}\nTo: {receiver}\nSubject: {subject}\n\n{body}"
 
-    server.sendmail(sender,receiver,msg)
+    # server.sendmail(sender,receiver,msg)
 
     print("mail sent")
     server.quit()
@@ -149,9 +151,7 @@ def home(request):
             
             all_product = cursor.fetchall()
             
-            img_arr = []
-            for i in all_product:
-                img_arr.append(i[2].decode('utf-8'))
+            img_arr = np.array(all_product)[:, 2]
             
             con = {"product": zip(all_product, img_arr)}
             return render(request, 'home.html', context= con)
@@ -182,7 +182,7 @@ def seller(request):
                 i1 = Image.open(BytesIO(productImage))
                 i1.resize(size= (100,100))
                 resized = BytesIO()
-                i1.save(resized, format= 'JPEG')
+                i1.save(resized, format= 'png')
                 
                 # img = b64encode(productImage).decode('utf-8')
                 
@@ -300,3 +300,41 @@ def seller(request):
         
     else:
         return render(request, 'login.html')
+    
+
+def buy(request, product):
+    if 'user' in request.session:
+        if(request.method == 'POST' and 'details' in request.POST):
+            buy_val = request.POST['buy_val']
+            
+            buy_val = json.loads(buy_val)
+            
+            product_name = buy_val['product_name']
+            company_name = buy_val['company_name']
+                        
+            pro_details = """SELECT 
+                    product_name, price_of_product, product_image, 
+                    product_description, company_name, location, 
+                    availablility
+                    FROM ecom.product_details
+                    where product_name=%s and company_name=%s;"""
+                    
+            pro_val = [product_name, company_name]
+            
+            cursor.execute(pro_details, pro_val)
+            result = cursor.fetchall()
+            
+            img_arr = np.array(result)[:,2]
+            
+            con = {"product": zip(result, img_arr)}
+                        
+            return render(request, 'details.html', context= con)
+            pass   
+        elif(request.method == 'POST' and 'buy' in request.POST):
+            return render(request, 'buy.html')
+            pass
+        else:
+            con = {"not_buying":""}
+            return render(request, 'details.html', context= con) 
+    
+

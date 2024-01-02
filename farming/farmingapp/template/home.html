@@ -13,6 +13,10 @@
         <h1>Welcome to Buyer | Seller</h1>
     </header>
 
+    {% if buy%}
+        {{buy}}
+    {% endif %}
+
     <nav>
         <form action="" method="post">
             {% csrf_token %}
@@ -43,9 +47,13 @@
                             <th>Company Name</th>
                             <td>{{i.4}}</td>
                         </tr>
-                        
                     </table>
-                    <button>Buy</button>
+                    <form action="{{i.0}}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="buy_val" value='{"product_name":"{{i.0}}", "company_name":"{{i.4}}"}' readonly>
+                        <button name="details" >Details</button>
+                    </form>
+                    
                 </div>
             {% endfor %}
         {% endif %}
@@ -77,5 +85,9 @@
     <footer>
         <p>Footer will be added later</p>
     </footer>
+
+    <script>
+
+    </script>
 </body>
 </html>
