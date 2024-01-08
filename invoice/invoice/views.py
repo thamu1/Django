@@ -157,6 +157,13 @@ def view_product(request):
 
     product = Product.objects.filter(product_is_delete=False)
     print(product)
+    
+    if request.method == "POST":
+        # product = ProductForm(request.POST)
+        # if product.is_valid():
+        #     product.save()
+        return redirect("create_product")
+    
     context = {
         "total_product": total_product,
         # "total_customer": total_customer,
@@ -392,9 +399,18 @@ def edit_product(request, pk):
     form = ProductForm(instance=product)
 
     if request.method == "POST":
-        # customer = CustomerForm(request.POST, instance=product)
-
+        # customer = CustomerForm(request.POST, instance=product) 
+        edit_form = ProductForm(request.POST)
+        prod_name = edit_form["product_name"].value()
+        prod_price = edit_form["product_price"].value()
+        prod_unit = edit_form["product_unit"].value()
+        
+        product.product_name = prod_name
+        product.product_price = prod_price
+        product.product_unit = prod_unit
+        
         product.save()
+        
         return redirect("view_product")
 
     context = {
