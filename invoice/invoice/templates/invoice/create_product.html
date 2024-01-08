@@ -1,8 +1,10 @@
 {% extends "invoice/base/base.html" %}
 <!-- Content Row -->
 {% block content %}
+
 <div class="row">
     <!-- Area Chart -->
+
     <div class="col-xl-12 col-lg-7">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
@@ -10,6 +12,7 @@
                 <label class="m-0 font-weight-bold text-primary">Create product</label>
             </div>
             <!-- Card Body -->
+
             <div class="card-body">
                 <form method="post" action="">
                     {% csrf_token %}
